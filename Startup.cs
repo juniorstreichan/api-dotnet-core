@@ -29,6 +29,7 @@ namespace apiCachorro
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddDbContext<CachorroDbContext>(
                options => options.UseNpgsql(Configuration.GetConnectionString("CachorroDB"))
                );
@@ -47,7 +48,7 @@ namespace apiCachorro
             {
                 app.UseHsts();
             }
-
+            app.UseCors(option => option.AllowAnyOrigin());
             app.UseHttpsRedirection();
             app.UseMvc();
         }

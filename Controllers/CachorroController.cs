@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using apiCachorro.Repository.Interfaces;
 using apiCachorro.Models;
+using Microsoft.AspNetCore.Cors;
 
 namespace apiCachorro.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+
     public class CachorroController : Controller
     {
 
@@ -20,6 +22,7 @@ namespace apiCachorro.Controllers
         }
 
         [HttpGet]
+        [DisableCors]
         public ActionResult<IEnumerable<Cachorro>> GetAll()
         {
             return new ObjectResult(_repository.GetAll());
@@ -36,6 +39,7 @@ namespace apiCachorro.Controllers
         }
 
         [HttpPost]
+        [DisableCors]
         public IActionResult Create([FromBody] Cachorro cachorro)
         {
 
@@ -50,6 +54,7 @@ namespace apiCachorro.Controllers
         }
 
         [HttpPut("{id}")]
+        [DisableCors]
         public IActionResult Update(long id, [FromBody] Cachorro cachorro)
         {
             if (cachorro == null || id <= 0)
@@ -70,6 +75,7 @@ namespace apiCachorro.Controllers
         }
 
         [HttpDelete("{id}")]
+        [DisableCors]
         public IActionResult Delete(long id)
         {
             var del = _repository.FindById(id);
